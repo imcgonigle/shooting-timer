@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Shooting Timer</string>
+    <string name="warning">Warning</string>
+    <string name="warning_text">Shooters must wear proper hearing protection anytime they are shooting.</string>
+    <string name="agree">I Agree</string>
+</resources>
