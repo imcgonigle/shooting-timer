@@ -12,4 +12,8 @@ public class RoundSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_round_settings);
     }
 
+    public void toRound() {
+        Intent intent = new Intent(this, RoundActivity.class);
+        startActivity(intent);
+    }
 }
