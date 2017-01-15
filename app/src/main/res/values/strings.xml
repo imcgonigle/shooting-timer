@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Shooting Timer</string>
     <string name="warning">Warning</string>
-    <string name="warning_text">Shooters must wear proper hearing protection anytime they are shooting.</string>
+    <string name="warning_text">Shooters must wear proper hearing protection when using this app.</string>
     <string name="agree">I Agree</string>
     <string name="continue_string">Continue</string>
     <string name="settings">Settings</string>
@@ -9,4 +9,7 @@
     <string name="timer">00:00.000</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
+    <string name="duration_label">Round Duration</string>
+    <string name="start_in_label">Start In</string>
+    <string name="time_between_items">Time Between Items</string>
 </resources>
