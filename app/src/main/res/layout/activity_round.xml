@@ -9,20 +9,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.rockyourglock.android.shootingtimer.RoundActivity">
-
-    <Button
-        android:id="@+id/btn_start_round"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="80dp"
-        android:text="@string/start"
-        android:background="@drawable/outline_button"
-        android:onClick="startRound"/>
-
     <TextView
         android:id="@+id/tv_timer"
+        android:textColor="@color/colorAccent2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -31,6 +20,18 @@
         android:text="@string/timer"
         android:textSize="30dp"
         android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/btn_start_round"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/tv_timer"
+        android:text="@string/start"
+        android:background="@drawable/outline_button"
+        android:onClick="startRound"/>
+
 
     <Button
         android:layout_width="wrap_content"
@@ -43,4 +44,29 @@
         android:background="@drawable/outline_button"
         android:onClick="backToSettings"/>
 
+    <Button
+        android:id="@+id/btn_stop"
+        android:text="@string/pause"
+        android:background="@drawable/outline_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="invisible"
+        android:onClick="pauseRound"/>
+
+    <Button
+        android:id="@+id/btn_resume"
+        android:text="@string/resume"
+        android:background="@drawable/outline_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="invisible"
+        android:onClick="resumeRound"/>
 </RelativeLayout>
