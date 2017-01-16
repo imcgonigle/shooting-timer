@@ -12,4 +12,7 @@
     <string name="duration_label">Round Duration</string>
     <string name="start_in_label">Start In</string>
     <string name="time_between_items">Time Between Items</string>
+    <string name="finished">Finished!</string>
+    <string name="ready">Ready?</string>
+    <string name="new_round">New Round</string>
 </resources>

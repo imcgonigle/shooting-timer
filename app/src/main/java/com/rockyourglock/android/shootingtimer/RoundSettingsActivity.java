@@ -8,10 +8,12 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 public class RoundSettingsActivity extends AppCompatActivity {
-    public final static String EXTRA_DURATION_VALUE = "com.rockyourglock.android.shootingtimer.DURATION";
-    public final static String EXTRA_STARTIN_VALUE = "com.rockyourglock.android.shootingtimer.STARTIN";
-    public final static String EXTRA_TIME_BETWEEN_VALUE = "com.rockyourglock.android.shootingtimer.TIME_BETWEEN";
+    public final static String EXTRA_DURATION = "com.rockyourglock.android.shootingtimer.DURATION";
+    public final static String EXTRA_STARTIN = "com.rockyourglock.android.shootingtimer.STARTIN";
+    public final static String EXTRA_TIME_BETWEEN = "com.rockyourglock.android.shootingtimer.TIME_BETWEEN";
 
     private SeekBar roundDuratoin;
     private TextView durationValueTextView;
@@ -32,10 +34,9 @@ public class RoundSettingsActivity extends AppCompatActivity {
         seconds = seconds % 60;
 
         // Initialize the durationValue with '15 sec'.
-        durationValueTextView.setText("min " + String.format("%02d", minutes)
-                + " sec " + String.format("%02d", seconds));
+        durationValueTextView.setText(String.format(Locale.US, "%02d min %02d sec", minutes, seconds));
         startInTextView.setText("1 sec");
-        timeBetweenItemsTextView.setText(".4 sec");
+        timeBetweenItemsTextView.setText(".5 sec");
 
         roundDuratoin.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
@@ -43,12 +44,15 @@ public class RoundSettingsActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                 progress = progressValue;
-                Toast.makeText(getApplicationContext(), "Changing seekbars progress", Toast.LENGTH_SHORT).show();
+                int seconds = progress * 15 + 15;
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+                durationValueTextView.setText(String.format(Locale.US, "%02d min %02d sec", minutes, seconds));
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Changing Round Length", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -56,9 +60,7 @@ public class RoundSettingsActivity extends AppCompatActivity {
                 int seconds = progress * 15 + 15;
                 int minutes = seconds / 60;
                 seconds = seconds % 60;
-                durationValueTextView.setText("min " + String.format("%02d", minutes)
-                        + " sec " + Integer.toString(seconds) );
-                Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
+                durationValueTextView.setText(String.format(Locale.US, "%02d min %02d sec", minutes, seconds));
             }
         });
 
@@ -68,18 +70,19 @@ public class RoundSettingsActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                 progress = progressValue;
-                Toast.makeText(getApplicationContext(), "Changing seekbars progress", Toast.LENGTH_SHORT).show();
+                int seconds = progress + 1;
+                startInTextView.setText(String.format(Locale.US, "%02d sec", seconds));
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Changing start in time", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int seconds = progress + 1;
-                startInTextView.setText("" + String.format("%02d", seconds) + " sec");
+                startInTextView.setText(String.format(Locale.US, "%02d sec", seconds));
             }
         });
 
@@ -89,30 +92,32 @@ public class RoundSettingsActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                 progress = progressValue;
+                double time = progress * .1 + .5;
+                timeBetweenItemsTextView.setText(String.format(Locale.US, "%.1f sec", time));
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                Toast.makeText(getApplicationContext(), "Changing Time Between Items", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                double time  = progress * .1 + .4;
-                timeBetweenItemsTextView.setText("" + String.format("%.1f", time) + " sec");
+                double time  = progress * .1 + .5;
+                timeBetweenItemsTextView.setText(String.format(Locale.US, "%.1f sec", time));
             }
         });
     }
 
     public void toRound(View view) {
-        String secondsString = String.valueOf(roundDuratoin.getProgress() * 15 + 15);
-        String startInExtra = String.valueOf(startIn.getProgress() + 1);
-        String timeBetweenExtra = String.valueOf(timeBetweenItems.getProgress() * .1 + .4);
+        int durationExtra = roundDuratoin.getProgress() * 15 + 15;
+        int startInExtra = startIn.getProgress() + 1;
+        int timeBetweenExtra = (timeBetweenItems.getProgress() + 5) * 100;
 
         Intent intent = new Intent(this, RoundActivity.class);
-        intent.putExtra(EXTRA_DURATION_VALUE, secondsString);
-        intent.putExtra(EXTRA_STARTIN_VALUE, startInExtra);
-        intent.putExtra(EXTRA_TIME_BETWEEN_VALUE, timeBetweenExtra);
+        intent.putExtra(EXTRA_DURATION, durationExtra);
+        intent.putExtra(EXTRA_STARTIN, startInExtra);
+        intent.putExtra(EXTRA_TIME_BETWEEN, timeBetweenExtra);
         startActivity(intent);
     }
 
