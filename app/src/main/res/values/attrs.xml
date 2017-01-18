@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TimerPreferenceDialog">
+        <attr name="minutes" format="boolean" />
+        <attr name="seconds" format="boolean" />
+        <attr name="minutesMax" format="integer" />
+        <attr name="secondsMax" format="integer" />
+        <attr name="secondsMin" format="float" />
+        <attr name="minutesMin" format="float" />
+        <attr name="incrementsSeconds" format="float" />
+        <attr name="incrementsMinutes" format="float" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="textColor" format="color" />
+    </declare-styleable>
+</resources>

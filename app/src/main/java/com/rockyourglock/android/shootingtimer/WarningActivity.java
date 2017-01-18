@@ -13,7 +13,7 @@ public class WarningActivity extends AppCompatActivity {
         setContentView(R.layout.activity_warning);
     }
     public void agreeToWarning(View view){
-        Intent intent = new Intent(this, RoundSettingsActivity.class);
+        Intent intent = new Intent(this, RoundActivity.class);
         startActivity(intent);
     }
 }

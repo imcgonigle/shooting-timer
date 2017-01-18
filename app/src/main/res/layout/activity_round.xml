@@ -43,18 +43,6 @@
         android:background="@drawable/outline_button"
         android:onClick="startRound"/>
 
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:background="@drawable/outline_button"
-        android:onClick="backToSettings"/>
-
     <Button
         android:id="@+id/btn_stop"
         android:text="@string/pause"

@@ -7,10 +7,48 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorBackground</item>
-        <item name="android:textColorPrimary">@color/colorLight</item>
         <item name="android:textColorSecondary">@color/colorAccent</item>
         <item name="android:textColorPrimaryInverse">@color/colorAccent2</item>
         <item name="android:textColorSecondaryInverse">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorLighter</item>
+    </style>
+
+    <!-- Accent color for preferences activity ........... -->
+    <color name="preference_accent">@color/colorAccent</color>
+
+    <!-- App theme for preferences activity ........... -->
+    <style name="AppThemePreferences" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="actionModeBackground">@color/colorAccent2</item>
+        <item name="colorControlHighlight">@color/colorLight</item>
+        <item name="colorControlActivated">@color/colorLight</item>
+        <!-- AppCompat Dialog Attributes -->
+        <item name="android:alertDialogTheme">@style/AppCompatAlert</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+    </style>
+
+    <!-- Alert Dialog Theme -->
+    <style name="AppCompatAlert" parent="Theme.AppCompat.Dialog.Alert">
+        <!-- Used for the title textColor-->
+        <!-- Used for the background -->
+        <item name="android:background">@color/colorLight</item>
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorAccent2</item>
+        <item name="android:windowTitleStyle">@style/WindowTitleStyle</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorBackground</item>
+    </style>
+
+    <style name="WindowTitleStyle">
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textSize">50sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
 </resources>

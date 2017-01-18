@@ -1,12 +1,17 @@
 package com.rockyourglock.android.shootingtimer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,28 +37,46 @@ public class RoundActivity extends AppCompatActivity {
     private TextView targetValue;
 
     private CountDownTimer countDownTimer;
+    private CountDownTimer startTimer;
 
     private TextToSpeech textToSpeech;
 
-    private int timeInSeconds;
     private int millisecondsLeft;
     private int startInSeconds;
     private int timeBetweenItems;
+
+    private int roundDurationInMilliseconds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round);
         initializeVariables();
+        setTitle("Round 1");
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                settings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
-    public void backToSettings(View view){
-        Intent intent = new Intent(this, RoundSettingsActivity.class);
+    private void settings(){
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
     public void startRound(View view) {
-        CountDownTimer startTimer;
         int startLength = startInSeconds * 1000;
 
         startButton.setVisibility(View.INVISIBLE);
@@ -70,7 +93,7 @@ public class RoundActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                int timeLength = timeInSeconds * 1000;
+                int timeLength = roundDurationInMilliseconds;
                 targetValue.setVisibility(View.VISIBLE);
                 setUpTimer(timeLength);
                 countDownTimer.start();
@@ -82,7 +105,11 @@ public class RoundActivity extends AppCompatActivity {
     public void pauseRound(View view) {
         pauseButton.setVisibility(View.INVISIBLE);
         resumeButton.setVisibility(View.VISIBLE);
-        countDownTimer.cancel();
+        if(countDownTimer != null) {
+            countDownTimer.cancel();
+        }else if(startTimer != null) {
+            startTimer.cancel();
+        }
     }
 
     public void resumeRound(View view) {
@@ -140,10 +167,7 @@ public class RoundActivity extends AppCompatActivity {
     }
 
     private void initializeVariables() {
-        Intent intent = getIntent();
-        timeInSeconds  = intent.getIntExtra(RoundSettingsActivity.EXTRA_DURATION, 0);
-        startInSeconds = intent.getIntExtra(RoundSettingsActivity.EXTRA_STARTIN, 0);
-        timeBetweenItems = intent.getIntExtra(RoundSettingsActivity.EXTRA_TIME_BETWEEN, 0);
+        getAndSetPreferences();
 
         startButton = (Button) findViewById(R.id.btn_start_round);
         pauseButton = (Button) findViewById(R.id.btn_stop);
@@ -166,5 +190,31 @@ public class RoundActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAndSetPreferences();
+        targetValue.setText(R.string.ready);
+        targetValue.setVisibility(View.INVISIBLE);
+        timerValue.setVisibility(View.INVISIBLE);
+        resumeButton.setVisibility(View.INVISIBLE);
+        pauseButton.setVisibility(View.INVISIBLE);
+        startButton.setVisibility(View.VISIBLE);
+        millisecondsLeft = roundDurationInMilliseconds;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pauseRound(findViewById(android.R.id.content));
+    }
+
+    private void getAndSetPreferences() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        roundDurationInMilliseconds = sharedPreferences.getInt(SettingsActivity.KEY_ROUND_DURATION, 15) * 1000;
+        startInSeconds = sharedPreferences.getInt(SettingsActivity.KEY_START_TIME, 10);
+        timeBetweenItems = (int) (sharedPreferences.getInt(SettingsActivity.KEY_TIME_BETWEEN, 6) * 100);
     }
 }

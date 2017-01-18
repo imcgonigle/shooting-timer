@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+    xmlns:custom="http://schemas.android.com/apk/res/com.rockyourglock.android.shootingtimer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:title="Settings">
+    <PreferenceCategory android:title="Times" >
+        <com.rockyourglock.android.shootingtimer.TimerPickerPreference
+            android:id="@+id/pref_round_duration"
+            android:title="Round Length"
+            android:key="pref_round_duration"
+            android:defaultValue="55"
+            custom:minutesMax="15" />
+        <com.rockyourglock.android.shootingtimer.TimerPickerPreference
+            android:id="@+id/pref_start_time"
+            android:title="Start Time"
+            android:key="pref_start_time"
+            android:defaultValue="15"
+            custom:minutes="false"
+            custom:secondsMax="15"/>
+        <com.rockyourglock.android.shootingtimer.TimerPickerPreference
+            android:title="Time Between Targets"
+            android:key="pref_time_between_targets"
+            android:defaultValue="3"
+            custom:minutes="false"
+            custom:secondsMax="3"
+            custom:secondsMin=".5"
+            custom:incrementsSeconds=".1"/>
+    </PreferenceCategory>
 
 
 </PreferenceScreen>
